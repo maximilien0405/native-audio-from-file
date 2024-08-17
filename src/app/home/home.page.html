@@ -1,20 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Native Audio From File
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <div *ngIf="!recordingFinished">
+      <ion-button (click)="startRecording()" *ngIf="!isRecording">Start recording</ion-button>
+      <h3 *ngIf="isRecording">Recording...</h3>
+      <ion-button (click)="stopRecording()" *ngIf="isRecording">Stop recording</ion-button>
+    </div>
+
+    <div *ngIf="recordingFinished">
+      <h3>Recording finished !</h3>
+      <p>{{ recordingPath }}</p>
+
+      <ion-button (click)="playSound()" *ngIf="recordingPath">Play sound from path</ion-button>
+      <ion-button (click)="clear()">Clear<ion-icon slot="end" name="trash"></ion-icon></ion-button>
+    </div>
   </div>
 </ion-content>
